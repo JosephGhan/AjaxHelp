@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rocket Launch</title>
+</head>
+<body>
+        <div id="name"></div>
+        <button id = butt1>Next 5 Launches</button>
+        <button id = butt2>Next 5 Falcon Launches</button>
+        <button id = butt3>Next 5 Launcherone Launches</button>
+        <button id = butt4>Next 5 Ariane Launches</button>
+        <script>
+                let x = 5;
+                var httpRequest = new XMLHttpRequest();
+                httpRequest.open("get", "https://launchlibrary.net/1.4/launch");
+                httpRequest.send();
+
+                httpRequest.onreadystatechange  = aFunction;
+
+                var httpRequest2 = new XMLHttpRequest();
+                var httpRequest3 = new XMLHttpRequest();
+                var httpRequest4 = new XMLHttpRequest();
+                
+
+        function aFunction(){
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                //alert("800!");
+                var jsObject = JSON.parse(httpRequest.responseText);
+                //console.log(jsObject);
+                for (let i = 0; i < 5; i++) {
+                document.getElementById('name').innerHTML += (i + 1) + ": " + jsObject.launches[i].name + "    ID: " + jsObject.launches[i].id + "   Launch Time: " +  jsObject.launches[i].net + "<br>";
+                }        
+              }
+            
+        }
+        
+        function change1() {
+            document.getElementById('name').innerHTML = "";
+            var jsObject = JSON.parse(httpRequest.responseText);
+            for (x; x < 10 ; x++) {
+                document.getElementById('name').innerHTML += (x + 1) + ": " + jsObject.launches[x].name + "    ID: " + jsObject.launches[x].id + "   Launch Time: " +  jsObject.launches[x].net + "<br>";
+                }
+        }
+
+        function change2() {
+            document.getElementById('name').innerHTML = "";
+            httpRequest2.open("get", "https://launchlibrary.net/1.4/launch/Falcon");
+            httpRequest2.send();
+            httpRequest2.onreadystatechange  = AddList2;
+        }
+
+        function AddList2() {
+            if (httpRequest2.readyState == 4 && httpRequest2.status == 200) {
+                var jsObject2 = JSON.parse(httpRequest2.responseText);
+                console.log(jsObject2);
+                for (let i = 0; i < 5; i++) {
+                    document.getElementById('name').innerHTML += (i + 1) + ": " + jsObject2.launches[i].name + "    ID: " + jsObject2.launches[i].id + "   Launch Time: " +  jsObject2.launches[i].net + "<br>";
+                }
+            }
+        }
+
+        function change3() {
+            document.getElementById('name').innerHTML = "";
+            httpRequest3.open("get", "https://launchlibrary.net/1.4/launch/launcherone");
+            httpRequest3.send();
+            httpRequest3.onreadystatechange  = AddList3;
+        }
+
+        function AddList3() {
+            if (httpRequest3.readyState == 4 && httpRequest3.status == 200) {
+                var jsObject3 = JSON.parse(httpRequest3.responseText);
+                console.log(jsObject3);
+                for (let i = 0; i < 5; i++) {
+                    document.getElementById('name').innerHTML += (i + 1) + ": " + jsObject3.launches[i].name + "    ID: " + jsObject3.launches[i].id + "   Launch Time: " +  jsObject3.launches[i].net + "<br>";
+                }
+            }
+        }
+
+        function change4() {
+            document.getElementById('name').innerHTML = "";
+            httpRequest4.open("get", "https://launchlibrary.net/1.4/launch/ariane");
+            httpRequest4.send();
+            httpRequest4.onreadystatechange  = AddList4;
+        }
+
+        function AddList4() {
+            if (httpRequest4.readyState == 4 && httpRequest4.status == 200) {
+                var jsObject4 = JSON.parse(httpRequest4.responseText);
+                console.log(jsObject4);
+                for (let i = 0; i < 5; i++) {
+                    document.getElementById('name').innerHTML += (i + 1) + ": " + jsObject4.launches[i].name + "    ID: " + jsObject4.launches[i].id + "   Launch Time: " +  jsObject4.launches[i].net + "<br>";
+                }
+            }
+        }
+
+        document.getElementById("butt1").addEventListener("click", change1);
+        document.getElementById("butt2").addEventListener("click", change2);
+        document.getElementById("butt3").addEventListener("click", change3);
+        document.getElementById("butt4").addEventListener("click", change4);
+        </script>
+
+
+
+</body>
+</html>
